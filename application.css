@@ -1,0 +1,91 @@
+.container {
+  padding-top: 10px;
+}
+
+.spaceBefore {
+  padding-top: 10px;
+}
+
+.spaceAfter {
+  padding-bottom: 10px;
+}
+
+.spaceRight {
+  padding-right: 10px;
+}
+
+.largeButton {
+  width: 100px;
+}
+
+.login {
+  background-color: #292b2c;
+  width: 700px;
+  margin: auto 100px;
+  padding: 50px;
+  border-radius: 10px;
+}
+
+.lightText {
+  color: white;
+}
+
+.rightText {
+  text-align: right;
+}
+
+.largeMarginTop {
+  margin-top: 100px;
+}
+
+.center {
+  margin: auto;
+}
+
+.switchButton input[type='radio'] {
+  display: none;
+}
+
+.switchButton label {
+  background-color: #292b2c;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 0 2px;
+  width: 100px;
+  text-align: center;
+}
+
+.switchButton input[type='radio']:checked+label {
+  border: 2px solid #0275d8;
+  background-color: #0275d8;
+  width: 100px;
+}
+
+.switchButton table,tr,td {
+  padding: 0;
+  margin: 0;
+}
+
+.switchButton {
+  background-color: #0275d8;
+  border-radius: 3px;
+  padding: 0 5px 0 5px;
+  width: 200px;
+}
+
+.loginMessages {
+  max-width: 700px;
+}
+
+.btn-group {
+   margin: 0 auto;
+ }
+
+.error-message {
+  width: 700px;
+}
+
+.message-none {
+  display: none;
+}
