@@ -29,13 +29,18 @@
     // Create INSERT query
     $sql = "INSERT INTO users (User_Name, First_Name, Last_Name, Email, Password, User_Role) VALUES ('$screenname', '$firstname', '$lastname', '$email', '$pass', 'User')";
 
-    // Run the query and redirect back to login page with updated parameter if successful, if not show error
-    if ($conn->query($sql) === TRUE) {
-        echo "$firstname $lastname inserted into database";
-        $conn->close();
-        header("Location: index.php?message=updated");
+    // All fields must be filled in
+    if($firstname != null && $lastname != null && $email != null && $screenname != null && $pass != null) {
+        // Run the query and redirect back to login page with updated parameter if successful, if not show error
+        if ($conn->query($sql) === TRUE) {
+            echo "$firstname $lastname inserted into database";
+            $conn->close();
+            header("Location: index.php?message=updated");
+        } else {
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        echo "All fields are required";
     }
 
     $conn->close();
