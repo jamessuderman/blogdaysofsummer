@@ -1,53 +1,74 @@
 <!--
     Blog Site - Blog Days of Summer
-    Version 1.0
-    Login / Registration Module
+    Version 1.1
+    Main Application
     James Suderman
-    3/3/2019
+    3/14/2019
 -->
 
-<?php
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="application.css"/>
 
-    $servername = "127.0.0.1:3306";
-    $dbuser = "root";
-    $dbpassword = "5041Jamon";
-    $dbname = "blogsite";
+    <title>Blog Days of Summer</title>
+</head>
+<body>
 
-    // Create connection
-    $conn = new mysqli($servername, $dbuser, $dbpassword, $dbname);
+    <?php include "header.php" ?>
 
-    // If the connection fails show error
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
+    <div class="container">
+        <div class="row">
+            <h1>Blogs</h1>
 
-    // Create SELECT query
-    $sql = "SELECT * FROM users WHERE User_Name='$username'";
+            <form id="searchForm" class="form-inline" style="margin-left: auto;">
+                <input type="text" id="search" name="search" class="form-control spaceRight loginFormControl"/>
+                <a class="btn btn-dark largeButton" href="#">Search</a>
+            </form>
+        </div>
 
-    // Store the results from the SELECT
-    $result = mysqli_query($conn, $sql) or die("Bad Query: $sql");
+        <hr/>
 
-    // Get the first row from the result
-    $row = mysqli_fetch_assoc($result);
+        <div class="spaceAfter">
+            <a class="btn btn-primary largeButton" href="blog.php">New</a>
+        </div>
 
-    // If user is not present, redirect to login with nouser parameter to show error
-    if($row == null) {
-        echo "Username not present in database";
-        $conn->close();
-        header("Location: index.php?message=nouser");
-    }
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Author</th>
+                    <th scope="col">Date</th>
+                    <?php
+                        if($_SESSION['role'] == "Admin") {
+                            echo "<th scope='col'></th>";
+                        }
+                    ?>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                    session_start();
+                    foreach($posts as $post) {
+                        echo "<tr>";
+                        echo "<td>{$post['Post_Id']}</td>";
+                        echo "<td>{$post['Post_Title']}</td>";
+                        echo "<td>{$post['Author']}</td>";
+                        echo "<td>{$post['Post_Date']}</td>";
 
-    // If user is present, but password does not match, redirect to login with nopass parameter to show error
-    if($row['Password'] != $password) {
-        echo "Password for {$row['User_Name']} is incorrect";
-        $conn->close();
-        header("Location: index.php?message=nopass");
-    }
+                        if($_SESSION['role'] == "Admin") {
+                            echo "<td><a class='btn btn-danger' href=#>DELETE</a></td>";
+                        }
 
-    $conn->close();
+                        echo "</tr>";
+                    }
+                ?>
+            </tbody>
+        </table>
+    </div>
 
-    // If no errors simply show that the user was logged in
-    echo "{$row['User_Name']} was logged in";
-?>
+</body>
+</html>

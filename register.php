@@ -7,24 +7,16 @@
 -->
 
 <?php
+    require_once "datasource.php";
+    $datasource = new datasource();
+
     $firstname = $_POST['firstName'];
     $lastname = $_POST['lastName'];
     $email = $_POST['email'];
     $screenname = $_POST['screenName'];
     $pass = $_POST['pass'];
 
-    $servername = "127.0.0.1:3306";
-    $dbuser = "root";
-    $dbpassword = "5041Jamon";
-    $dbname = "blogsite";
-
-    // Create connection
-    $conn = new mysqli($servername, $dbuser, $dbpassword, $dbname);
-
-    // If the connection fails show error
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
+    $conn = $datasource->connectDB();
 
     // Create INSERT query
     $sql = "INSERT INTO users (User_Name, First_Name, Last_Name, Email, Password, User_Role) VALUES ('$screenname', '$firstname', '$lastname', '$email', '$pass', 'User')";
@@ -34,7 +26,6 @@
         // Run the query and redirect back to login page with updated parameter if successful, if not show error
         if ($conn->query($sql) === TRUE) {
             echo "$firstname $lastname inserted into database";
-            $conn->close();
             header("Location: index.php?message=updated");
         } else {
             echo "Error: " . $sql . "<br>" . $conn->error;

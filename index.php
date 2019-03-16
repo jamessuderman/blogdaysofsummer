@@ -27,7 +27,7 @@
 
         <!-- The following 2 forms are controlled by javascript to show upon toggle button select -->
 
-        <form id="loginForm" method="post" action="application.php">
+        <form id="loginForm" method="post" action="login.php">
             <div>
                 <div class="row spaceAfter center">
                     <label for="username" class="spaceRight lightText largeButton">Username: </label>
