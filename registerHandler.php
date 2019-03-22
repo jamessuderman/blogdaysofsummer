@@ -16,15 +16,10 @@
     $screenname = $_POST['screenName'];
     $pass = $_POST['pass'];
 
-    $conn = $datasource->connectDB();
-
-    // Create INSERT query
-    $sql = "INSERT INTO users (User_Name, First_Name, Last_Name, Email, Password, User_Role) VALUES ('$screenname', '$firstname', '$lastname', '$email', '$pass', 'User')";
-
     // All fields must be filled in
     if($firstname != null && $lastname != null && $email != null && $screenname != null && $pass != null) {
         // Run the query and redirect back to login page with updated parameter if successful, if not show error
-        if ($conn->query($sql) === TRUE) {
+        if ($datasource->saveUser($screenname, $firstname, $lastname, $email, $pass)== TRUE) {
             echo "$firstname $lastname inserted into database";
             header("Location: index.php?message=updated");
         } else {
@@ -33,6 +28,4 @@
     } else {
         echo "All fields are required";
     }
-
-    $conn->close();
 ?>

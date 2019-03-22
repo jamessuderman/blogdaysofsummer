@@ -39,10 +39,25 @@ class datasource
         return $rowUser;
     }
 
+    function saveUser($screenname, $firstname, $lastname, $email, $pass) {
+        $conn = $this->connectDB();
+
+        // Create INSERT query
+        $sql = "INSERT INTO users (User_Name, First_Name, Last_Name, Email, Password, User_Role) VALUES ('$screenname', '$firstname', '$lastname', '$email', '$pass', 'User')";
+
+        if ($conn->query($sql) === TRUE) {
+            $conn->close();
+            return TRUE;
+        } else {
+            $conn->close();
+            return FALSE;
+        }
+    }
+
     function getPosts() {
         $conn = $this->connectDB();
 
-        $sqlPosts = "SELECT * FROM posts";
+        $sqlPosts = "SELECT * FROM Posts WHERE Deleted_Flag = 'N'";
         $resultPosts = mysqli_query($conn, $sqlPosts) or die("Bad Query: $sqlPosts");
         $posts = array();
         while($rowPost = mysqli_fetch_assoc($resultPosts)) {
@@ -63,6 +78,39 @@ class datasource
         $conn = $this->connectDB();
 
         $sql = "INSERT INTO posts (Post_Title, Post_Body, Post_Date, Author) VALUES ('$newTitle', '$newBody', '$date', '{$_SESSION['username']}')";
+
+        if ($conn->query($sql) === TRUE) {
+            $conn->close();
+            return TRUE;
+        } else {
+            $conn->close();
+            return FALSE;
+        }
+    }
+
+    function updatePost($id, $title, $body, $date) {
+        session_start();
+
+        $newTitle = addcslashes($title, "'");
+        $newBody = addcslashes($body, "'");
+
+        $conn = $this->connectDB();
+
+        $sql = "UPDATE Posts SET Post_Title = '$newTitle', Post_Body = '$newBody', Updated_Date = '$date', Updated_Author = '{$_SESSION['username']}' WHERE Post_Id = '$id'";
+
+        if ($conn->query($sql) === TRUE) {
+            $conn->close();
+            return TRUE;
+        } else {
+            $conn->close();
+            return FALSE;
+        }
+    }
+
+    function deletePost($id) {
+        $conn = $this->connectDB();
+
+        $sql = "UPDATE Posts SET Deleted_Flag = 'Y' WHERE Post_Id = '$id'";
 
         if ($conn->query($sql) === TRUE) {
             $conn->close();

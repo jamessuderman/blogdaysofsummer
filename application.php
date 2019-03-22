@@ -17,7 +17,7 @@
 </head>
 <body>
 
-    <?php include "header.php" ?>
+    <?php include "_header.php" ?>
 
     <div class="container">
         <div class="row">
@@ -42,6 +42,7 @@
                     <th scope="col">Title</th>
                     <th scope="col">Author</th>
                     <th scope="col">Date</th>
+                    <th scope='col'></th>
                     <?php
                         if($_SESSION['role'] == "Admin") {
                             echo "<th scope='col'></th>";
@@ -59,8 +60,15 @@
                         echo "<td>{$post['Author']}</td>";
                         echo "<td>{$post['Post_Date']}</td>";
 
+                        if($post['Author'] == $_SESSION['username']) {
+                            $query = http_build_query(array('id' => $post['Post_Id'], 'title' => $post['Post_Title'], 'body' => $post['Post_Body']));
+                            echo "<td><a class='btn btn-secondary largeButton' href='blog.php?$query'>EDIT</a></td>";
+                        } else {
+                            echo"<td></td>";
+                        }
+
                         if($_SESSION['role'] == "Admin") {
-                            echo "<td><a class='btn btn-danger' href=#>DELETE</a></td>";
+                            echo "<td><a class='btn btn-danger largeButton' href='deleteHandler.php?id={$post['Post_Id']}'>DELETE</a></td>";
                         }
 
                         echo "</tr>";

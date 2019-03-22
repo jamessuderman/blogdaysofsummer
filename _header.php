@@ -12,6 +12,6 @@
     <a class="navbar-brand" href="application.php">BLOG DAYS OF SUMMER</a>
     <div style="padding-top: 4px; margin-left: auto;">
         <label class="navbar-brand spaceAfter"><?php echo $_SESSION['username'] ?></label>
-        <a class="btn btn-light" href="logout.php">Logout</a>
+        <a class="btn btn-light" href="logoutHandler.php">Logout</a>
     </div>
 </nav>
