@@ -11,9 +11,9 @@
 class datasource
 {
     function connectDB() {
-        $servername = "127.0.0.1:3306";
+        $servername = "127.0.0.1:8889";
         $dbuser = "root";
-        $dbpassword = "5041Jamon";
+        $dbpassword = "root";
         $dbname = "blogsite";
 
         // Create connection

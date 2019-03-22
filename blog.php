@@ -22,23 +22,48 @@
     <div class="container">
         <div class="login center largeMarginTop spaceAfter">
             <form id="blogform" method="post" action="saveBlog.php">
+                <div class="row spaceAfter" style="width: 290px; margin-left: auto;">
+                    <label for="category" class="lightText">Category: </label>
+                    <select id="category" name="category" class="form-inline form-control spaceRight loginFormControl" style="width: 200px; margin-left: auto;">
+                        <option value="volvo">Technology</option>
+                        <option value="saab">Entertainment</option>
+                        <option value="mercedes">Leisure</option>
+                        <option value="audi">Family</option>
+                    </select>
+                </div>
                 <div>
                     <div class="row spaceAfter center">
                         <label for="title" class="spaceRight lightText largeButton">Title: </label>
                         <?php
-                            if($_GET['title']) {
-                                echo "<input type='text' id='title' name='title' class='form-control spaceRight loginFormControl' value='{$_GET['title']}'/>";
+                            if($_GET['mode'] == 'view') {
+                                if($_GET['title']) {
+                                    echo "<input type='text' id='title' name='title' class='form-control spaceRight loginFormControl' value='{$_GET['title']}' readonly='readonly'/>";
+                                } else {
+                                    echo "<input type='text' id='title' name='title' class='form-control spaceRight loginFormControl' readonly='readonly'/>";
+                                }
                             } else {
-                                echo "<input type='text' id='title' name='title' class='form-control spaceRight loginFormControl'/>";
+                                if($_GET['title']) {
+                                    echo "<input type='text' id='title' name='title' class='form-control spaceRight loginFormControl' value='{$_GET['title']}'/>";
+                                } else {
+                                    echo "<input type='text' id='title' name='title' class='form-control spaceRight loginFormControl'/>";
+                                }
                             }
                         ?>
                     </div>
                     <div class="row spaceAfter center">
                         <?php
-                            if($_GET['body']) {
-                                echo "<textarea rows='5' cols='250' maxlength='250' id='body' name='body'>{$_GET['body']}</textarea>";
+                            if($_GET['mode'] == 'view') {
+                                if ($_GET['body']) {
+                                    echo "<textarea rows='5' cols='250' maxlength='250' id='body' name='body' disabled>{$_GET['body']}</textarea>";
+                                } else {
+                                    echo "<textarea rows='5' cols='250' maxlength='250' id='body' name='body' disabled></textarea>";
+                                }
                             } else {
-                                echo "<textarea rows='5' cols='250' maxlength='250' id='body' name='body'></textarea>";
+                                if ($_GET['body']) {
+                                    echo "<textarea rows='5' cols='250' maxlength='250' id='body' name='body'>{$_GET['body']}</textarea>";
+                                } else {
+                                    echo "<textarea rows='5' cols='250' maxlength='250' id='body' name='body'></textarea>";
+                                }
                             }
                         ?>
                     </div>
@@ -47,9 +72,14 @@
                             if($_GET['id']) {
                                 echo "<input type='hidden' name='id' id='id' value='{$_GET['id']}'/>";
                             }
+
+                            if($_GET['mode'] != 'view') {
+                                echo "<input type='submit' value='Post' class='btn btn-primary largeButton center' style='margin-left: auto;'/>";
+                                echo "<a class='btn btn-secondary largeButton center' style='margin-right: auto;' href='cancelHandler.php'>Cancel</a>";
+                            } else {
+                                echo "<a class=\"btn btn-secondary largeButton center\" style=\"margin-right: auto;\" href=\"cancelHandler.php\">Back</a>";
+                            }
                         ?>
-                        <input type="submit" value="Post" class="btn btn-primary largeButton center" style="margin-left: auto;"/>
-                        <a class="btn btn-secondary largeButton center" style="margin-right: auto;" href="cancelHandler.php">Cancel</a>
                     </div>
                 </div>
             </form>
