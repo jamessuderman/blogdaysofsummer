@@ -6,6 +6,12 @@
     3/14/2019
 -->
 
+<?php
+    require 'datasource.php';
+    $datasource = new datasource();
+    $categories = $datasource->getCategories();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,15 +27,24 @@
 
     <div class="container">
         <div class="login center largeMarginTop spaceAfter">
-            <form id="blogform" method="post" action="saveBlog.php">
+            <form id="blogform" method="post" action="saveHandler.php">
                 <div class="row spaceAfter" style="width: 290px; margin-left: auto;">
                     <label for="category" class="lightText">Category: </label>
-                    <select id="category" name="category" class="form-inline form-control spaceRight loginFormControl" style="width: 200px; margin-left: auto;">
-                        <option value="volvo">Technology</option>
-                        <option value="saab">Entertainment</option>
-                        <option value="mercedes">Leisure</option>
-                        <option value="audi">Family</option>
-                    </select>
+                    <?php
+                        if($_GET['mode'] == 'view') {
+                            echo "<select id='category' name='category' class='form-inline form-control spaceRight loginFormControl' style='width: 200px; margin-left: auto;' disabled>";
+                            echo "<option value='{$_GET['category']}'>{$_GET['category']}</option>";
+                            echo "</select>";
+                        } else {
+                            echo "<select id='category' name='category' class='form-inline form-control spaceRight loginFormControl' style='width: 200px; margin-left: auto;'>";
+
+                            foreach ($categories as $category) {
+                                echo "<option value='{$category['Category_Name']}'>{$category['Category_Name']}</option>";
+                            }
+
+                            echo "</select>";
+                        }
+                    ?>
                 </div>
                 <div>
                     <div class="row spaceAfter center">

@@ -34,6 +34,7 @@
 
     $title = $_POST['title'];
     $body = $_POST['body'];
+    $category = $_POST['category'];
     $date = date('Y-m-d');
     $bannedWords = array("cuss", "swear", "profanity");
 
@@ -47,7 +48,7 @@
 
     if($_POST['id']) {
         // If editing, update the post in the database
-        if ($datasource->updatePost($_POST['id'], $title, $body, $date) == TRUE) {
+        if ($datasource->updatePost($_POST['id'], $title, $body, $category, $date) == TRUE) {
             $posts = $datasource->getPosts();
             include "application.php";
         } else {
@@ -55,7 +56,7 @@
         }
     } else {
         // Save the new post, then retrieve all the posts again to show on the blog list
-        if ($datasource->savePost($title, $body, $date) == TRUE) {
+        if ($datasource->savePost($title, $body, $category, $date) == TRUE) {
             $posts = $datasource->getPosts();
             include "application.php";
         } else {

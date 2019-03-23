@@ -11,9 +11,9 @@
 class datasource
 {
     function connectDB() {
-        $servername = "127.0.0.1:8889";
+        $servername = "127.0.0.1:3306";
         $dbuser = "root";
-        $dbpassword = "root";
+        $dbpassword = "5041Jamon";
         $dbname = "blogsite";
 
         // Create connection
@@ -54,10 +54,26 @@ class datasource
         }
     }
 
+    function getCategories() {
+        $conn = $this->connectDB();
+
+        $sqlCategories = "SELECT * FROM Categories WHERE Active_Flag = 'Y'";
+        $resultPosts = mysqli_query($conn, $sqlCategories) or die("Bad Query: $sqlCategories");
+        $categories = array();
+        while($rowPost = mysqli_fetch_assoc($resultPosts)) {
+            array_push($categories, $rowPost);
+        }
+
+        $conn->close();
+
+        return $categories;
+    }
+
     function getPosts() {
         $conn = $this->connectDB();
 
-        $sqlPosts = "SELECT * FROM Posts WHERE Deleted_Flag = 'N'";
+        $sqlPosts = "SELECT Posts.Post_Id, Posts.Post_Title, Posts.Post_Body, Categories.Category_Name, Posts.Author, Posts.Post_Date 
+                      FROM Posts INNER JOIN Categories ON Posts.Category_Id = Categories.Category_Id WHERE Posts.Deleted_Flag = 'N' ";
         $resultPosts = mysqli_query($conn, $sqlPosts) or die("Bad Query: $sqlPosts");
         $posts = array();
         while($rowPost = mysqli_fetch_assoc($resultPosts)) {
@@ -69,7 +85,7 @@ class datasource
         return $posts;
     }
 
-    function savePost($title, $body, $date) {
+    function savePost($title, $body, $category, $date) {
         session_start();
 
         $newTitle = addcslashes($title, "'");
@@ -77,7 +93,8 @@ class datasource
 
         $conn = $this->connectDB();
 
-        $sql = "INSERT INTO posts (Post_Title, Post_Body, Post_Date, Author) VALUES ('$newTitle', '$newBody', '$date', '{$_SESSION['username']}')";
+        $sql = "INSERT INTO Posts (Posts.Post_Title, Posts.Category_Id, Posts.Post_Body, Posts.Post_Date, Author) 
+                VALUES ('$newTitle', (SELECT Categories.Category_Id FROM Categories WHERE Category_Name = '$category'), '$newBody', '$date', '{$_SESSION['username']}')";
 
         if ($conn->query($sql) === TRUE) {
             $conn->close();
@@ -88,7 +105,7 @@ class datasource
         }
     }
 
-    function updatePost($id, $title, $body, $date) {
+    function updatePost($id, $title, $body, $category, $date) {
         session_start();
 
         $newTitle = addcslashes($title, "'");
@@ -96,7 +113,9 @@ class datasource
 
         $conn = $this->connectDB();
 
-        $sql = "UPDATE Posts SET Post_Title = '$newTitle', Post_Body = '$newBody', Updated_Date = '$date', Updated_Author = '{$_SESSION['username']}' WHERE Post_Id = '$id'";
+        $sql = "UPDATE Posts SET Post_Title = '$newTitle', Category_Id = (SELECT Categories.Category_Id 
+                FROM Categories WHERE Category_Name = '$category'), Post_Body = '$newBody', Updated_Date = '$date', Updated_Author = '{$_SESSION['username']}' 
+                WHERE Post_Id = '$id'";
 
         if ($conn->query($sql) === TRUE) {
             $conn->close();
@@ -119,5 +138,37 @@ class datasource
             $conn->close();
             return FALSE;
         }
+    }
+
+    function searchPost($param, $constraint) {
+        $conn = $this->connectDB();
+
+        switch($constraint) {
+            case 'Author':
+                $sqlPosts = "SELECT Posts.Post_Id, Posts.Post_Title, Posts.Post_Body, Categories.Category_Name, Posts.Author, Posts.Post_Date 
+                              FROM Posts INNER JOIN Categories ON Posts.Category_Id = Categories.Category_Id 
+                              WHERE Posts.Author = '$param' AND Posts.Deleted_Flag = 'N' ";
+                break;
+            case 'Title':
+                $sqlPosts = "SELECT Posts.Post_Id, Posts.Post_Title, Posts.Post_Body, Categories.Category_Name, Posts.Author, Posts.Post_Date 
+                              FROM Posts INNER JOIN Categories ON Posts.Category_Id = Categories.Category_Id 
+                              WHERE Post_Title = '$param' AND Posts.Deleted_Flag = 'N' ";
+                break;
+            case 'Category':
+                $sqlPosts = "SELECT Posts.Post_Id, Posts.Post_Title, Posts.Post_Body, Categories.Category_Name, Posts.Author, Posts.Post_Date 
+                              FROM Posts INNER JOIN Categories ON Posts.Category_Id = Categories.Category_Id 
+                              WHERE Posts.Category_Id = (SELECT Categories.Category_Id FROM Categories WHERE Category_Name = '$param') AND Posts.Deleted_Flag = 'N' ";
+                break;
+        }
+
+        $resultPosts = mysqli_query($conn, $sqlPosts) or die("Bad Query: $sqlPosts");
+        $posts = array();
+        while($rowPost = mysqli_fetch_assoc($resultPosts)) {
+            array_push($posts, $rowPost);
+        }
+
+        $conn->close();
+
+        return $posts;
     }
 }
