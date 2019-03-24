@@ -1,0 +1,89 @@
+
+<!--
+    Blog Site - Blog Days of Summer
+    Version 1.0
+    Login / Registration Module
+    James Suderman
+    3/3/2019
+-->
+
+<!--
+    Blog Site - Blog Days of Summer
+    Version 1.1
+    Database class
+    James Suderman
+    3/15/2019
+-->
+
+<!--
+    Blog Site - Blog Days of Summer
+    Version 1.1
+    Main Application
+    James Suderman
+    3/14/2019
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../application.css"/>
+
+    <title>Blog Days of Summer</title>
+</head>
+<body>
+
+<!--
+Blog Site - Blog Days of Summer
+Version 1.1
+Header template for all pages
+James Suderman
+3/15/2019
+-->
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="../application.php">BLOG DAYS OF SUMMER</a>
+    <div style="padding-top: 4px; margin-left: auto;">
+        <label class="navbar-brand spaceAfter">captainamerica</label>
+        <a class="btn btn-light" href="../logoutHandler.php">Logout</a>
+    </div>
+</nav><div class="container">
+    <div class="row">
+        <h1>Blogs</h1>
+
+        <form id="searchForm" class="form-inline" style="margin-left: auto;" method="post" action="../searchHandler.php">
+            <input type="text" id="search" name="search" class="form-control spaceRight loginFormControl"/>
+            <input type="submit" value="Search" class="btn btn-dark largeButton" style="margin: 10px;"/>
+            <select id="category" name="category" class="form-inline form-control spaceRight loginFormControl" style="width: 100px;">
+                <option value="Author">Author</option>
+                <option value="Category">Category</option>
+                <option value="Title">Title</option>
+            </select>
+        </form>
+    </div>
+
+    <hr/>
+
+    <div class="row spaceAfter">
+        <a class="btn btn-primary largeButton" href="../blog.php">New</a>
+        <a class="btn btn-dark largeButton" style="margin-left: auto;" href="../getHandler.php">All Blogs</a>
+    </div>
+
+    <table class="table table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Title</th>
+            <th scope="col">Category</th>
+            <th scope="col">Author</th>
+            <th scope="col">Date</th>
+            <th scope='col'></th>
+            <th scope='col'></th>        </tr>
+        </thead>
+        <tbody>
+        <tr><td><a href='../blog.php?id=23&title=I+have+the+power&body=No%2C+literally%2C+I%27ve+got+a+nuclear+reactor+in+my+chest&category=Technology&mode=view'>I have the power</a></td><td>Technology</td><td>ironman</td><td>2019-03-20</td><input type='hidden' name='id' id='id' value='23'/><td></td><td><a class='btn btn-danger largeButton' href='../deleteHandler.php?id=23'>DELETE</a></td></tr><tr><td><a href='../blog.php?id=25&title=This+is+the+post+where+I+describe+my+suit&body=It+is+all+blue+and+makes+me+look+like+great&category=Super+Hero&mode=view'>This is the post where I describe my suit</a></td><td>Super Hero</td><td>captainamerica</td><td>2019-03-20</td><input type='hidden' name='id' id='id' value='25'/><td><a class='btn btn-secondary largeButton' href='../blog.php?id=25&title=This+is+the+post+where+I+describe+my+suit&body=It+is+all+blue+and+makes+me+look+like+great'>EDIT</a></td><td><a class='btn btn-danger largeButton' href='../deleteHandler.php?id=25'>DELETE</a></td></tr><tr><td><a href='../blog.php?id=28&title=Green+with+envy&body=It+is+anger+that+makes+me+hulk+out%2C+but+envy+is+what+turns+me+green&category=Super+Hero&mode=view'>Green with envy</a></td><td>Super Hero</td><td>incrediblehulk</td><td>2019-03-23</td><input type='hidden' name='id' id='id' value='28'/><td></td><td><a class='btn btn-danger largeButton' href='../deleteHandler.php?id=28'>DELETE</a></td></tr><tr><td><a href='../blog.php?id=30&title=Oh+what+a+web+we+weave&body=Sometimes+we+are+so+focused+on+swinging+through+life+that+we+forget+the+ones+closest+to+us&category=Philosophy&mode=view'>Oh what a web we weave</a></td><td>Philosophy</td><td>spiderman</td><td>2019-03-23</td><input type='hidden' name='id' id='id' value='30'/><td></td><td><a class='btn btn-danger largeButton' href='../deleteHandler.php?id=30'>DELETE</a></td></tr>        </tbody>
+    </table>
+</div>
+</body>
+</html>
