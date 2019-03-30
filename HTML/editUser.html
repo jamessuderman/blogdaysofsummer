@@ -1,0 +1,69 @@
+
+<!--
+    Blog Site - Blog Days of Summer
+    Version 1.3
+    Edit User
+    James Suderman
+    3/30/2019
+-->
+
+<!--
+    Blog Site - Blog Days of Summer
+    Version 1.1
+    Database class
+    James Suderman
+    3/15/2019
+-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="application.css"/>
+
+    <title>Edit User</title>
+</head>
+<body>
+
+<!--
+    Blog Site - Blog Days of Summer
+    Version 1.1
+    Header template for all pages
+    James Suderman
+    3/15/2019
+-->
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="application.php">BLOG DAYS OF SUMMER</a>
+    <div style="padding-top: 4px; margin-left: auto;">
+        <label class="navbar-brand spaceAfter">ironman</label>
+
+        <a class='btn btn-primary' href='adminHandler.php'>Admin</a>
+        <a class="btn btn-light" href="logoutHandler.php">Logout</a>
+    </div>
+</nav>
+<div class="container">
+    <div class="login center largeMarginTop spaceAfter">
+        <form id="userform" method="post" action="updateUserHandler.php">
+            <div>
+                <div class="spaceAfter center">
+                    <p class="spaceRight lightText">Name: Steve Rogers</p>
+                    <p class="spaceRight lightText">Email: captainamerica@gmail.com</p>
+                    <p class="spaceRight lightText">Username: captainamerica</p>
+                    <label for="password" class="spaceRight lightText">Password: </label>
+                    <input type='text' id='password' name='password' class='form-control spaceRight loginFormControl' value=5041Jamon />
+                </div>
+                <div>
+                    <label for='admin' class='spaceRight lightText' style='margin-right: 29px;'>Admin</label><input id='admin' name='admin' type='checkbox' class='form-check-input' value='N' checked />                </div>
+                <div class="spaceAfter">
+                    <label for='banned' class='spaceRight lightText' style='margin-right: 20px;'>Banned</label><input id='banned' name='banned' type='checkbox' class='form-check-input' value='Y' />                </div>
+
+                <input type='hidden' name='id' id='id' value='19'/>
+                <div class="row spaceBefore">
+                    <input type='submit' value='Update' class='btn btn-primary largeButton center' style='margin-left: auto;'/><a class='btn btn-secondary largeButton center' style='margin-right: auto;' href='cancelHandler.php'>Cancel</a>                </div>
+        </form>
+    </div>
+</div>

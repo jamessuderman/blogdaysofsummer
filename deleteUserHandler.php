@@ -7,11 +7,13 @@
 -->
 
 <?php
+    session_start();
+    $_SESSION['task'] = "admin";
     require_once "datasource.php";
     $datasource = new datasource();
 
     if($datasource->deleteUser($_GET['id']) == TRUE) {
-        $posts = $datasource->getPosts();
+        $users = $datasource->getAllUsers();
         include "application.php";
     } else {
         echo "Problem deleting user";

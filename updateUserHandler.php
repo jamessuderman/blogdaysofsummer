@@ -14,12 +14,16 @@
     $id = $_POST['id'];
     $password = $_POST['password'];
 
+    // admin will be present if the checkbox is checked
+    // initialize the correct data for database based upon the checkbox
     if($_POST['admin']) {
         $role = "Admin";
     } else {
         $role = "User";
     }
 
+    // banned will be present if the checkbox is checked
+    // initialize the correct data for database based upon the checkbox
     if($_POST['banned']) {
         $banned = 'Y';
     } else {

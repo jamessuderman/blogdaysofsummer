@@ -1,3 +1,11 @@
+<!--
+    Blog Site - Blog Days of Summer
+    Version 1.3
+    User Admin
+    James Suderman
+    3/30/2019
+-->
+
 <div class="container">
     <div class="row">
         <h1>Admin</h1>

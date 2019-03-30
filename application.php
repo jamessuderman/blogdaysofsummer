@@ -21,6 +21,9 @@
         session_start();
         include "_header.php";
 
+        // This part of the page has different content based upon the task at hand
+        // This makes the page modular
+
         if($_SESSION['task'] == "blogs") {
             include "_blogs.php";
         } elseif ($_SESSION['task'] == "admin") {
