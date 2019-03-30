@@ -39,11 +39,66 @@ class datasource
         return $rowUser;
     }
 
+    function getUserById($id) {
+        $conn = $this->connectDB();
+
+        $sqlUsers = "SELECT * FROM users WHERE User_Id='$id'";
+        $resultUsers = mysqli_query($conn, $sqlUsers) or die("Bad Query: $sqlUsers");
+        $rowUser = mysqli_fetch_assoc($resultUsers);
+
+        $conn->close();
+
+        return $rowUser;
+    }
+
+    function getAllUsers() {
+        $conn = $this->connectDB();
+
+        $sqlCategories = "SELECT * FROM Users WHERE User_Deleted = 'N'";
+        $resultUsers = mysqli_query($conn, $sqlCategories) or die("Bad Query: $sqlCategories");
+        $users = array();
+        while($rowUsers = mysqli_fetch_assoc($resultUsers)) {
+            array_push($users, $rowUsers);
+        }
+
+        $conn->close();
+
+        return $users;
+    }
+
     function saveUser($screenname, $firstname, $lastname, $email, $pass) {
         $conn = $this->connectDB();
 
         // Create INSERT query
         $sql = "INSERT INTO users (User_Name, First_Name, Last_Name, Email, Password, User_Role) VALUES ('$screenname', '$firstname', '$lastname', '$email', '$pass', 'User')";
+
+        if ($conn->query($sql) === TRUE) {
+            $conn->close();
+            return TRUE;
+        } else {
+            $conn->close();
+            return FALSE;
+        }
+    }
+
+    function updateUser($id, $password, $role, $banned) {
+        $conn = $this->connectDB();
+
+        $sql = "UPDATE Users SET Password = '$password', User_Role = '$role', User_Banned = '$banned' WHERE User_Id = '$id'";
+
+        if ($conn->query($sql) === TRUE) {
+            $conn->close();
+            return TRUE;
+        } else {
+            $conn->close();
+            return FALSE;
+        }
+    }
+
+    function deleteUser($id) {
+        $conn = $this->connectDB();
+
+        $sql = "UPDATE Users SET User_Deleted = 'Y' WHERE User_Id = '$id'";
 
         if ($conn->query($sql) === TRUE) {
             $conn->close();

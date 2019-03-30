@@ -58,7 +58,7 @@
                 }
 
                 if($_SESSION['role'] == "Admin") {
-                    echo "<td><a class='btn btn-danger largeButton' href='deleteHandler.php?id={$post['Post_Id']}'>DELETE</a></td>";
+                    echo "<td><a class='btn btn-danger largeButton' href='deletePostHandler.php?id={$post['Post_Id']}'>DELETE</a></td>";
                 }
 
                 echo "</tr>";

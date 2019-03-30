@@ -12,7 +12,7 @@ function toggleClass(mode) {
     var login = document.getElementById("loginButton");
     var register = document.getElementById("registerButton");
 
-    if(mode === 'login') {
+    if(mode === 'login' || mode === 'user') {
         // If login button was clicked and it is inactive make it active and show the login form
         if(login.classList.contains('btn-secondary')) {
 

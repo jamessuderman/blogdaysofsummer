@@ -18,8 +18,14 @@
 <body>
 
     <?php
+        session_start();
         include "_header.php";
-        include "_blogs.php";
+
+        if($_SESSION['task'] == "blogs") {
+            include "_blogs.php";
+        } elseif ($_SESSION['task'] == "admin") {
+            include "_admin.php";
+        }
     ?>
 
 </body>

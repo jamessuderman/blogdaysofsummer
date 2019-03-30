@@ -16,24 +16,22 @@
     $rowUser = $datasource->getUser($username);
     $posts = $datasource->getPosts();
 
+
     // If user is not present, redirect to login with nouser parameter to show error
     if($rowUser == null) {
         echo "Username not present in database";
-        $conn->close();
         header("Location: index.php?message=nouser");
     }
 
     // If user is present, but password does not match, redirect to login with nopass parameter to show error
     if($rowUser['Password'] != $password) {
         echo "Password for {$rowUser['User_Name']} is incorrect";
-        $conn->close();
         header("Location: index.php?message=nopass");
     }
 
     session_start();
     $_SESSION['username'] = $rowUser['User_Name'];
     $_SESSION['role'] = $rowUser['User_Role'];
+    $_SESSION['task'] = "blogs";
     include "application.php";
-
-    $conn->close();
 ?>
