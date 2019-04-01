@@ -226,4 +226,8 @@ class datasource
 
         return $posts;
     }
+
+    function getComments($id) {
+        // Get comments
+    }
 }

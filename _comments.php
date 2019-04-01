@@ -8,6 +8,8 @@
 
 <div class="container">
         <?php
-            // Iterate comments user bootstrap cards
+            foreach($comments as $comment) {
+                // Do something with each comment
+            }
         ?>
 </div>

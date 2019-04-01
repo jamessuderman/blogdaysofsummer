@@ -7,9 +7,11 @@
 -->
 
 <?php
+    session_start();
     require 'datasource.php';
     $datasource = new datasource();
     $categories = $datasource->getCategories();
+    $comments = $datasource->getComments($_GET['id']);
 ?>
 
 <!DOCTYPE html>
@@ -137,6 +139,10 @@
             }
 
             echo "</div></div>";
+        }
+
+        if($_GET['mode'] == 'view') {
+            include "_comments.php";
         }
     ?>
 
