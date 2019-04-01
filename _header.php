@@ -8,7 +8,7 @@
 
 <?php session_start() ?>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <a class="navbar-brand" href="application.php">BLOG DAYS OF SUMMER</a>
     <div style="padding-top: 4px; margin-left: auto;">
         <label class="navbar-brand spaceAfter"><?php echo $_SESSION['username'] ?></label>

@@ -1,5 +1,4 @@
-Post_Id;Post_Title;Category_Id;Post_Body;Post_Date;Author;Updated_Date;Updated_Author;Deleted_Flag
-31;"Oh what a web we weave";12;"Most people swing from place to place and forget to save a life";2019-03-24;spiderman;NULL;NULL;N
-32;"I have got the power";10;"I lliterally have a nuclear reactor in my chest";2019-03-24;ironman;NULL;NULL;N
-33;"America the great";13;"I save lives and I look super American while I am doing it";2019-03-24;captainamerica;NULL;NULL;N
-34;"Green with envy";16;"Anger actually brushes me red, it is the envy that makes me green";2019-03-24;incrediblehulk;NULL;NULL;N
+"31;""Oh what a web we weave"";12;""Most people swing from place to place and forget to save a life"";2019-03-24;spiderman;NULL;NULL;N",
+"32;""I have got the power"";10;""I lliterally have a nuclear reactor in my chest"";2019-03-24;ironman;NULL;NULL;N",
+"33;""America the great"";13;""I save lives and I look super American while I am doing it"";2019-03-24;captainamerica;NULL;NULL;N",
+"34;""Green with envy"";16;""Anger actually brushes me red"," it is the envy that makes me green"";2019-03-24;incrediblehulk;NULL;NULL;N"

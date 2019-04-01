@@ -69,10 +69,27 @@
                         <?php
                             if($_GET['mode'] == 'view') {
                                 if ($_GET['body']) {
-                                    echo "<textarea rows='5' cols='250' maxlength='250' id='body' name='body' disabled>{$_GET['body']}</textarea>";
+                                    echo "<textarea class='form-control loginFormControl' rows='5' cols='250' maxlength='250' id='body' name='body' disabled>{$_GET['body']}</textarea>";
                                 } else {
-                                    echo "<textarea rows='5' cols='250' maxlength='250' id='body' name='body' disabled></textarea>";
+                                    echo "<textarea class='form-control loginFormControl' rows='5' cols='250' maxlength='250' id='body' name='body' disabled></textarea>";
                                 }
+
+                                echo "<div class='row spaceBefore spaceAfter center'>";
+                                echo "<div class='stars'>";
+                                echo "<input type='radio' name='star1' class='star1' id='star1' />";
+                                echo "<label class='star1' for='star1'>1</label>";
+                                echo "<input type='radio' name='star2' class='star2' id='star2' />";
+                                echo "<label class='star2' for='star2'>2</label>";
+                                echo "<input type='radio' name='star3' class='star3' id='star3' />";
+                                echo "<label class='star3' for='star3'>3</label>";
+                                echo "<input type='radio' name='star4' class='star4' id='star4' />";
+                                echo "<label class='star4' for='star4'>4</label>";
+                                echo "<input type='radio' name='star5' class='star5' id='star5' />";
+                                echo "<label class='star5' for='star5'>5</label>";
+                                echo "<span></span>";
+                                echo "</div>";
+                                echo "</div>";
+
                             } else {
                                 if ($_GET['body']) {
                                     echo "<textarea rows='5' cols='250' maxlength='250' id='body' name='body'>{$_GET['body']}</textarea>";
@@ -82,16 +99,24 @@
                             }
                         ?>
                     </div>
+
                     <div class="row">
                         <?php
                             if($_GET['id']) {
                                 echo "<input type='hidden' name='id' id='id' value='{$_GET['id']}'/>";
+                                echo "<input type='hidden' name='mode' id='mode' value='{$_GET['mode']}'/>";
                             }
 
                             if($_GET['mode'] != 'view') {
                                 echo "<input type='submit' value='Post' class='btn btn-primary largeButton center' style='margin-left: auto;'/>";
                                 echo "<a class='btn btn-secondary largeButton center' style='margin-right: auto;' href='cancelHandler.php'>Cancel</a>";
                             } else {
+                                echo "<div class='row spaceAfter center'>";
+                                echo "<label class='lightText' for='comment'>Comment: </label>";
+                                echo "<textarea class='form-control loginFormControl' rows='3' cols='250' maxlength='120' id='comment' name='comment'></textarea>";
+                                echo "</div>";
+
+                                echo "<input type='submit' value='Save' class='btn btn-primary largeButton center' style='margin-left: auto;'/>";
                                 echo "<a class=\"btn btn-secondary largeButton center\" style=\"margin-right: auto;\" href=\"cancelHandler.php\">Back</a>";
                             }
                         ?>

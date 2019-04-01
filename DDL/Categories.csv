@@ -1,8 +1,7 @@
-Category_Id;Category_Name;Created_Date;Active_Flag
 10;Technology;2019-03-24;Y
 11;Science;2019-03-24;Y
 12;Philosophy;2019-03-24;Y
-13;"Super Hero";2019-03-24;Y
+"13;""Super Hero"";2019-03-24;Y"
 14;Entertainment;2019-03-24;Y
 15;Leisure;2019-03-24;Y
 16;Art;2019-03-24;Y
