@@ -162,3 +162,13 @@
   -o-transition: -o-width 0.5s;
   transition: width 0.5s;
 }
+
+.single-star {
+  background: url("stars.png") 0 -60px;
+  transform: translateY(-3px);
+  width: 30px;
+}
+
+.card {
+  background-color: #c4c4c4;
+}

@@ -11,9 +11,9 @@
 class datasource
 {
     function connectDB() {
-        $servername = "127.0.0.1:8889";
+        $servername = "127.0.0.1:3306";
         $dbuser = "root";
-        $dbpassword = "root";
+        $dbpassword = "5041Jamon";
         $dbname = "blogsite";
 
         // Create connection
@@ -228,6 +228,52 @@ class datasource
     }
 
     function getComments($id) {
-        // Get comments
+        $conn = $this->connectDB();
+
+        $sqlComments= "SELECT Comments.Body, Users.User_Name, Ratings.Stars FROM Comments INNER JOIN Users ON Comments.Author_Id = Users.User_Id 
+                        INNER JOIN Ratings ON Ratings.Post_Id = Comments.Post_Id AND Ratings.Author_Id = Users.User_Id WHERE Comments.Post_Id = '$id'";
+        $resultComments = mysqli_query($conn, $sqlComments) or die("Bad Query: $sqlComments");
+        $comments = array();
+        while($rowComments = mysqli_fetch_assoc($resultComments)) {
+            array_push($comments, $rowComments);
+        }
+
+        $conn->close();
+
+        return $comments;
+    }
+
+    function saveComment($id, $body, $author) {
+        $conn = $this->connectDB();
+
+        // Create INSERT query
+        $sql = "INSERT INTO Comments (Body, Author_Id, Rating_Id, Post_Id) VALUES ('$body', 
+                (SELECT Users.User_Id FROM Users WHERE Users.User_Name = '$author'), 
+                (SELECT Ratings.Rating_Id FROM Ratings WHERE Ratings.Post_Id = '$id' AND Ratings.Author_Id =  
+                (SELECT Users.User_Id FROM Users WHERE Users.User_Name = '$author')), '$id')";
+
+        if ($conn->query($sql) === TRUE) {
+            $conn->close();
+            return TRUE;
+        } else {
+            $conn->close();
+            return FALSE;
+        }
+    }
+
+    function saveRating($id, $author, $stars) {
+        $conn = $this->connectDB();
+
+        // Create INSERT query
+        $sql = "INSERT INTO Ratings (Post_Id, Author_Id, Stars) 
+                VALUES ('$id', (SELECT Users.User_Id FROM Users WHERE Users.User_Name = '$author'),'$stars')";
+
+        if ($conn->query($sql) === TRUE) {
+            $conn->close();
+            return TRUE;
+        } else {
+            $conn->close();
+            return FALSE;
+        }
     }
 }

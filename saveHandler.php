@@ -4,6 +4,8 @@
     Save Blog Post
     James Suderman
     3/15/2019
+
+    This handler will show a post or create a new one
 -->
 
 <?php
@@ -27,19 +29,17 @@
         return false;
     }
 
-    var_dump($_POST);
-    exit();
-
     require "datasource.php";
-    if($datasource == NULL) {
-        $datasource = new datasource();
-    }
+    $datasource = new datasource();
+
+    session_start();
 
     $title = $_POST['title'];
     $body = $_POST['body'];
     $category = $_POST['category'];
     $date = date('Y-m-d');
     $bannedWords = array("cuss", "swear", "profanity");
+    $stars = 0;
 
     if($_POST['comment']) {
         $comment = $_POST['comment'];
@@ -69,21 +69,22 @@
         if ($_POST['id']) {
             // If editing, update the post in the database
             if ($datasource->updatePost($_POST['id'], $title, $body, $category, $date) == TRUE) {
-                $posts = $datasource->getPosts();
-                include "application.php";
             } else {
                 echo "Problem saving post to database";
             }
         } else {
             // Save the new post, then retrieve all the posts again to show on the blog list
             if ($datasource->savePost($title, $body, $category, $date) == TRUE) {
-                $posts = $datasource->getPosts();
-                include "application.php";
             } else {
                 echo "Problem saving post to database";
             }
         }
     } else {
-        // Save comment and stars with user as SESSION user
+        // Save rating first to use to save the comment
+        $datasource->saveRating($_POST['id'], $_SESSION['username'], $stars);
+        $datasource->saveComment($_POST['id'], $_POST['comment'], $_SESSION['username']);
     }
+
+    $posts = $datasource->getPosts();
+    include "application.php";
 ?>

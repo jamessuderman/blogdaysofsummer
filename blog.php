@@ -141,9 +141,22 @@
             echo "</div></div>";
         }
 
-        if($_GET['mode'] == 'view') {
-            include "_comments.php";
+        echo "</br>";
+
+        foreach ($comments as $comment) {
+            echo "<div class='card center' style='width: 18rem; background-color: #e3e3e3; width: 700px;'>";
+            echo "<div class='card-body'>";
+            echo "<h6 class='card-subtitle mb-2 text-muted'>{$comment['Body']}</h6>";
+            echo "<div class='row'>";
+            echo "<span class='card-text' style='padding-left: 10px; '>- {$comment['User_Name']} -</span>";
+            echo "<span style='margin-left: auto;'>{$comment['Stars']}</span>";
+            echo "<div class='single-star' style='margin-left: 5px;'></div>";
+            echo "</div>";
+            echo "</div>";
+            echo "</div>";
+            echo "</br>";
         }
+
     ?>
 
 </body>

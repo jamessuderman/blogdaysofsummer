@@ -14,7 +14,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- -----------------------------------------------------
 -- Schema blogsite
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `blogsite`;
+CREATE SCHEMA IF NOT EXISTS `blogsite` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
 USE `blogsite` ;
 
 -- -----------------------------------------------------
@@ -29,9 +29,41 @@ CREATE TABLE IF NOT EXISTS `blogsite`.`Categories` (
   `Active_Flag` VARCHAR(1) NULL DEFAULT 'Y',
   PRIMARY KEY (`Category_Id`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 17;
+AUTO_INCREMENT = 17
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
 
 CREATE UNIQUE INDEX `Category_Name_UNIQUE` ON `blogsite`.`Categories` (`Category_Name` ASC);
+
+
+-- -----------------------------------------------------
+-- Table `blogsite`.`Comments`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `blogsite`.`Comments` ;
+
+CREATE TABLE IF NOT EXISTS `blogsite`.`Comments` (
+  `Comment_Id` INT(11) NOT NULL AUTO_INCREMENT,
+  `Body` VARCHAR(120) NULL DEFAULT NULL,
+  `Author_Id` INT(11) NULL DEFAULT NULL,
+  `Rating_Id` INT(11) NULL DEFAULT NULL,
+  `Post_Id` INT(11) NULL DEFAULT NULL,
+  PRIMARY KEY (`Comment_Id`),
+  CONSTRAINT `fk_author_id`
+    FOREIGN KEY (`Author_Id`)
+    REFERENCES `blogsite`.`users` (`User_Id`),
+  CONSTRAINT `fk_rating_id`
+    FOREIGN KEY (`Rating_Id`)
+    REFERENCES `blogsite`.`ratings` (`Rating_Id`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 12
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+CREATE INDEX `fk_author_id_idx` ON `blogsite`.`Comments` (`Author_Id` ASC);
+
+CREATE INDEX `fk_rating_id_idx` ON `blogsite`.`Comments` (`Rating_Id` ASC);
+
+CREATE INDEX `fk_post_id_idx` ON `blogsite`.`Comments` (`Post_Id` ASC);
 
 
 -- -----------------------------------------------------
@@ -60,15 +92,39 @@ CREATE TABLE IF NOT EXISTS `blogsite`.`Posts` (
     FOREIGN KEY (`Updated_Author`)
     REFERENCES `blogsite`.`users` (`User_Name`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 35;
+AUTO_INCREMENT = 35
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
 
 CREATE UNIQUE INDEX `Post_Title_UNIQUE` ON `blogsite`.`Posts` (`Post_Title` ASC);
 
 CREATE INDEX `Category_Id_idx` ON `blogsite`.`Posts` (`Category_Id` ASC);
 
-CREATE INDEX `Author_idx` ON `blogsite`.`Posts` (`Author` ASC);
+CREATE INDEX `fk_author_idx` ON `blogsite`.`Posts` (`Author` ASC);
 
-CREATE INDEX `Updated_Author_idx` ON `blogsite`.`Posts` (`Updated_Author` ASC);
+CREATE INDEX `fk_updated_author_idx` ON `blogsite`.`Posts` (`Updated_Author` ASC);
+
+
+-- -----------------------------------------------------
+-- Table `blogsite`.`Ratings`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `blogsite`.`Ratings` ;
+
+CREATE TABLE IF NOT EXISTS `blogsite`.`Ratings` (
+  `Rating_Id` INT(11) NOT NULL AUTO_INCREMENT,
+  `Post_Id` INT(11) NOT NULL,
+  `Author_Id` INT(11) NULL DEFAULT NULL,
+  `Stars` INT(11) NULL DEFAULT '0',
+  PRIMARY KEY (`Rating_Id`),
+  CONSTRAINT `fk_post_id`
+    FOREIGN KEY (`Post_Id`)
+    REFERENCES `blogsite`.`posts` (`Post_Id`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 8
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+CREATE INDEX `fk_post_id_idx` ON `blogsite`.`Ratings` (`Post_Id` ASC);
 
 
 -- -----------------------------------------------------
@@ -94,7 +150,9 @@ CREATE TABLE IF NOT EXISTS `blogsite`.`Users` (
   `User_Deleted` VARCHAR(1) NULL DEFAULT 'N',
   PRIMARY KEY (`User_Id`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 21;
+AUTO_INCREMENT = 23
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
 
 CREATE UNIQUE INDEX `User_name_UNIQUE` ON `blogsite`.`Users` (`User_Name` ASC);
 

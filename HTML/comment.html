@@ -1,0 +1,72 @@
+
+<!--
+    Blog Site - Blog Days of Summer
+    Version 1.1
+    New Blog
+    James Suderman
+    3/14/2019
+-->
+
+<!--
+    Blog Site - Blog Days of Summer
+    Version 1.1
+    Database class
+    James Suderman
+    3/15/2019
+-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="application.css"/>
+
+    <title>New Blog</title>
+</head>
+<body>
+
+<!--
+Blog Site - Blog Days of Summer
+Version 1.1
+Header template for all pages
+James Suderman
+3/15/2019
+-->
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="application.php">BLOG DAYS OF SUMMER</a>
+    <div style="padding-top: 4px; margin-left: auto;">
+        <label class="navbar-brand spaceAfter">ironman</label>
+
+        <a class='btn btn-primary' href='adminHandler.php'>Admin</a>
+        <a class="btn btn-light" href="logoutHandler.php">Logout</a>
+    </div>
+</nav>
+<div class="container">
+    <div class="login center largeMarginTop spaceAfter">
+        <form id="blogform" method="post" action="saveHandler.php">
+            <div class="row spaceAfter" style="width: 290px; margin-left: auto;">
+                <label for="category" class="lightText">Category: </label>
+                <select id='category' name='category' class='form-inline form-control spaceRight loginFormControl' style='width: 200px; margin-left: auto;' disabled><option value='Art'>Art</option></select>                </div>
+            <div>
+                <div class="row spaceAfter center">
+                    <label for="title" class="spaceRight lightText largeButton">Title: </label>
+                    <input type='text' id='title' name='title' class='form-control spaceRight loginFormControl' value='Green with envy' readonly='readonly'/>                    </div>
+                <div class="row spaceAfter center">
+                    <textarea class='form-control loginFormControl' rows='5' cols='250' maxlength='250' id='body' name='body' disabled>Anger actually brushes me red, it is the envy that makes me green</textarea><div class='row spaceBefore spaceAfter center'><div class='stars'><input type='radio' name='star1' class='star1' id='star1' /><label class='star1' for='star1'>1</label><input type='radio' name='star2' class='star2' id='star2' /><label class='star2' for='star2'>2</label><input type='radio' name='star3' class='star3' id='star3' /><label class='star3' for='star3'>3</label><input type='radio' name='star4' class='star4' id='star4' /><label class='star4' for='star4'>4</label><input type='radio' name='star5' class='star5' id='star5' /><label class='star5' for='star5'>5</label><span></span></div></div>                    </div>
+
+                <div class="row">
+                    <input type='hidden' name='id' id='id' value='34'/><input type='hidden' name='mode' id='mode' value='view'/><div class='row spaceAfter center'><label class='lightText' for='comment'>Comment: </label><textarea class='form-control loginFormControl' rows='3' cols='250' maxlength='120' id='comment' name='comment'></textarea></div><input type='submit' value='Save' class='btn btn-primary largeButton center' style='margin-left: auto;'/><a class="btn btn-secondary largeButton center" style="margin-right: auto;" href="cancelHandler.php">Back</a>                    </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- This will conditionally show if the page has messages to show -->
+
+</br><div class='card center' style='width: 18rem; background-color: #e3e3e3; width: 700px;'><div class='card-body'><h6 class='card-subtitle mb-2 text-muted'>Please do no make hulk angry</h6><div class='row'><span class='card-text' style='padding-left: 10px; '>- incrediblehulk -</span><span style='margin-left: auto;'>3</span><div class='single-star' style='margin-left: 5px;'></div></div></div></div></br><div class='card center' style='width: 18rem; background-color: #e3e3e3; width: 700px;'><div class='card-body'><h6 class='card-subtitle mb-2 text-muted'>Chill out dude</h6><div class='row'><span class='card-text' style='padding-left: 10px; '>- captainamerica -</span><span style='margin-left: auto;'>5</span><div class='single-star' style='margin-left: 5px;'></div></div></div></div></br><div class='card center' style='width: 18rem; background-color: #e3e3e3; width: 700px;'><div class='card-body'><h6 class='card-subtitle mb-2 text-muted'>If all ragers were artists like you, the whole world would fall apart</h6><div class='row'><span class='card-text' style='padding-left: 10px; '>- ironman -</span><span style='margin-left: auto;'>2</span><div class='single-star' style='margin-left: 5px;'></div></div></div></div></br>
+</body>
+</html>
